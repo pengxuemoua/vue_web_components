@@ -1,8 +1,8 @@
 <template>
   <div class="wyr">
     
-    <h2>Please make your choice!</h2>
-
+    <h2>Would you rather...</h2>
+    
     <h3>{{ question }}</h3>
 
     <input type="radio" v-model="choice" v-bind:value="answer1" v-on:change="choiceMade">
@@ -11,25 +11,27 @@
     <input type="radio" v-model="choice" v-bind:value="answer2" v-on:change="choiceMade">
     <label>{{ answer2 }}</label>
 
+
   </div>
 </template>
 
 <script>
 export default {
   name: 'WouldYouRather',
-  props: {
+  props: { // recieves data from parent
+    id: Number,
     question: String,
     answer1: String,
     answer2: String,
   },
   data() {
     return{
-      choice: ''
+      choice: '' // choice will be emitted to parent to inform the user's wyr answer
     }
   },
   methods: {
     choiceMade() {
-      this.$emit('answer-changed', this.choice)
+      this.$emit('answer-changed', this.choice, this.id) // method name is answer-changed, payload of choice and id
     }
   }
 }
@@ -42,8 +44,8 @@ h3 {
 }
 
 .wyr {
-  border: 2px black solid;
-  background: gold;
+  border: 2px #F4EEE0 solid;
+  background: #F9E2AF;
   margin: 10px;
 }
 
